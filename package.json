@@ -31,7 +31,7 @@
         "singleQuote": true,
         "trailingComma": "es5"
     },
-    "name": "bridge",
+    "name": "fesoa-bridge",
     "author": "shrimpy",
     "module": "dist/bridge.esm.js",
     "size-limit": [
