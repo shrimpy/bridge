@@ -91,7 +91,7 @@ export const isValidMessage = (message: Message): boolean => {
     return false;
 };
 
-export const readMessageFromEvent = (mEvent: MessageEvent<Message>): Message | undefined => {
+export const readMessageFromEvent = (mEvent: MessageEvent): Message | undefined => {
     if (mEvent && isValidMessage(mEvent.data)) {
         return mEvent.data;
     }

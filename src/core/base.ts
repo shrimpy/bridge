@@ -48,7 +48,7 @@ export class Base {
             message.response = { status: StatusCode.OK, body: eventResult };
             const predMessage = prepareMessageForResponse(message);
             await this.sendMessage(predMessage);
-        } catch (err: Error) {
+        } catch (err) {
             const predMessage = buildErrorResponse(
                 message,
                 `failed to call event ${resolverReq.event} from resolver ${resolverReq.name}: ${err.message} > ${err.stack || ""}`,
@@ -100,7 +100,7 @@ export class Base {
     }
 }
 
-const buildErrorResponse = (message: Message, error: string, status: StatusCode): Message {
+const buildErrorResponse = (message: Message, error: string, status: StatusCode): Message => {
     message.response = { status, error };
     return prepareMessageForResponse(message);
 }
