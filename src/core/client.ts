@@ -1,4 +1,3 @@
-import { RequestController } from "./request-controller";
 import { Environment, MessageType, readMessageFromEvent, ResponseObject, StatusCode } from "./model";
 import { Base } from "./base";
 
@@ -13,10 +12,10 @@ export class Client extends Base {
         super(self)
         this.broadcastHeartBeatSignal = this.broadcastHeartBeatSignal.bind(this);
         this.onReceiveInitMessage = this.onReceiveInitMessage.bind(this);
+        self.addEventListener("message", this.onReceiveInitMessage);
 
         this.self = self;
 
-        this.rc = new RequestController(this.incomingMessageHandler);
         this.isReady = new Promise<void>(resolver => {
             this.isReadyResolver = resolver;
         });
