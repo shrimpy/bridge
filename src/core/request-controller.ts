@@ -9,7 +9,7 @@ export class RequestController {
     private messageHandler: MessageHandler;
 
     constructor(messageHandler: MessageHandler) {
-        this.onMessageReceived.bind(this);
+        this.onMessageReceived = this.onMessageReceived.bind(this);
         this.messageHandler = messageHandler;
         this.requestKeeper = new RequestKeeper();
     }
