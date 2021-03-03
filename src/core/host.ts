@@ -11,6 +11,7 @@ export class Host extends Base {
     constructor(self: Environment, client: Environment, clientOrigin: string) {
         super(self);
         this.onReceiveClientAliveSignal = this.onReceiveClientAliveSignal.bind(this);
+        self.addEventListener("message", this.onReceiveClientAliveSignal);
 
         this.client = client;
         this.clientOrigin = clientOrigin;

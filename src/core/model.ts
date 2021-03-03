@@ -68,6 +68,7 @@ export interface Environment {
     postMessage: (message: any, to: string, transfer?: any[]) => void;
     origin: string;
     parent: Environment;
+    addEventListener: (eventName: string, callback: (event: MessageEvent) => void) => void;
 }
 
 export interface RequestKeeperEntry {

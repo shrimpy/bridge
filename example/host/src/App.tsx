@@ -5,7 +5,7 @@ import { Environment, Host, IResolver } from "fesoa-bridge";
 import logo from './logo.svg';
 import './App.css';
 
-const clientSiteUrl = "http://localhost:9001";
+const clientSiteUrl = "http://localhost:3001";
 const shareStyling = {
   width: "800px",
   height: "300px",
@@ -17,7 +17,7 @@ const shareStyling = {
 
 function App() {
   useEffect(() => {
-
+    setupIframeDemo();
   }, [])
 
   return (
@@ -115,6 +115,6 @@ async function setupHost(name: string, client: Environment, clientOrigin: string
   await host.setup()
   console.log(`===> ${name} HOST: channel opened.`);
 
-  const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", "from host" as any, "");
+  const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", "message from host" as any, "");
   console.log(`===> RESPONSE from client: ${response}`);
 }
