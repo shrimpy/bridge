@@ -19,7 +19,12 @@ export class RequestController {
         this.port.onmessage = this.onMessageReceived;
     }
 
-    public sendMessage(from: string, to: string, req: object | undefined, mType: MessageType, protocolOverride?: (message: Message) => void): Promise<Message> {
+    public sendMessage(message: Message): Promise<Message> {
+        this.port.postMessage(message);
+        return this.requestKeeper.add(message);
+    }
+
+    public sendRequest(from: string, to: string, req: object | undefined, mType: MessageType, protocolOverride?: (message: Message) => void): Promise<Message> {
         const message = buildMessage(req, mType, from, to);
 
         if (protocolOverride) {

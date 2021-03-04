@@ -18,6 +18,7 @@ const shareStyling = {
 function App() {
   useEffect(() => {
     setupIframeDemo();
+    // setupDivDemo();
   }, [])
 
   return (
@@ -36,7 +37,6 @@ function App() {
 }
 
 export default App;
-
 
 function setupIframeDemo(): void {
   const iframeElement: HTMLIFrameElement = document.createElement("iframe");
@@ -61,7 +61,7 @@ async function setupDivDemo(): Promise<void> {
   const scriptPromises: Promise<void>[] = [];
   for (let idx = 0; idx < scriptElementList.length; idx++) {
     const scriptElement = scriptElementList[idx];
-    scriptPromises.push(addScriptToDOM(scriptElement.src.replace("http://localhost:9000", clientSiteUrl)));
+    scriptPromises.push(addScriptToDOM(scriptElement.src.replace("http://localhost:3000", clientSiteUrl)));
     (scriptElement.parentNode as Node).removeChild(scriptElement);
   }
 
@@ -93,28 +93,24 @@ function addScriptToDOM(scriptSrc: string): Promise<void> {
   });
 }
 
-
 class HostSampleResolver implements IResolver {
   public name: string = "HostSampleResolver";
 
-  public echo(message: string, from: string): Promise<string> {
+  public echo(inputs: { message: string }, from: string): Promise<any> {
     return new Promise((resolver) => {
       setTimeout(() => {
-
-        console.log(`===> resolving request from ${from}, message: ${message}`);
-        resolver(`echo from host: ${message}`);
+        resolver({ data: `echo from host: ${inputs.message}` });
       }, 500);
     });
   }
 }
 
-
 async function setupHost(name: string, client: Environment, clientOrigin: string) {
   const host = new Host(window, client, clientOrigin);
   host.registerResolver(new HostSampleResolver());
   await host.setup()
-  console.log(`===> ${name} HOST: channel opened.`);
+  console.log(`Host ===> ${name}: channel opened.`);
 
-  const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", "message from host" as any, "");
-  console.log(`===> RESPONSE from client: ${response}`);
+  const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", { message: "message from host" }, "");
+  console.log(`Host ===> RESPONSE from client > ${JSON.stringify(response)}`);
 }

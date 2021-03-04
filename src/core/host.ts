@@ -27,7 +27,7 @@ export class Host extends Base {
 
     public async setup(): Promise<void> {
         await this.isClientReady;
-        this.rc.sendMessage(
+        this.rc.sendRequest(
             "",
             this.clientOrigin,
             undefined,

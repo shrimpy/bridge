@@ -64,11 +64,10 @@ export class Base {
             throw Error("'message' param is not serializable.");
         }
 
-        return this.rc.sendMessage(
-            this.self.origin, message.to, message, MessageType.MESSAGING);
+        return this.rc.sendMessage(message);
     }
 
-    public async invokeResolver<T>(resolverName: string, eventName: string, inputs: Object, to: string): Promise<T> {
+    public async invokeResolver<T>(resolverName: string, eventName: string, inputs: any, to: string): Promise<T> {
         const req: IResolverRequest = {
             name: resolverName,
             event: eventName,
