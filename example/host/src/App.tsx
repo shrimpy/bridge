@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { Environment, Host, IResolver } from "fesoa-bridge";
-
-import logo from './logo.svg';
 import './App.css';
 
 const clientSiteUrl = "http://localhost:3001";
@@ -18,13 +16,12 @@ const shareStyling = {
 function App() {
   useEffect(() => {
     setupIframeDemo();
-    // setupDivDemo();
+    setupDivDemo();
   }, [])
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to Bridge demo</h1>
         <p>Host Origin: {window.location.origin}</p>
       </header>

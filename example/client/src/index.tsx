@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Client, IResolver } from 'fesoa-bridge';
@@ -11,7 +10,7 @@ class ClientSampleResolver implements IResolver {
   public echo(inputs: { message: string }, from: string): Promise<any> {
     return new Promise((resolver) => {
       setTimeout(() => {
-        resolver({ data: `echo from client: ${inputs.message}` });
+        resolver({ data: `echo from client (${window.origin}): ${inputs.message}` });
       }, 500);
     });
   }
@@ -34,7 +33,7 @@ const main = async () => {
     <React.StrictMode>
       <App />
     </React.StrictMode>,
-    document.getElementById('root')
+    document.getElementById('client-root')
   );
 
   // If you want to start measuring performance in your app, pass a function

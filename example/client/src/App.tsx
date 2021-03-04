@@ -1,13 +1,9 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Client Origin: {window.location.origin}</p>
-      </header>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <p>Client Origin: {window.location.origin}</p>
     </div>
   );
 }
