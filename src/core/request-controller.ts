@@ -1,5 +1,6 @@
 import { RequestKeeper } from "./request-keeper";
-import { buildMessage, Message, MessageType, prepareMessageForResponse, readMessageFromEvent, ResponseObject } from "./model";
+import { Message, MessageType, ResponseObject } from "./model";
+import { buildMessage, prepareMessageForResponse, readMessageFromEvent } from "./internal-model";
 
 export type MessageHandler = (message: Message) => void;
 

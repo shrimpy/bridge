@@ -1,5 +1,6 @@
 import { isSerializableShallow } from "../utils";
-import { buildMessage, Environment, IResolver, IResolverRequest, Message, MessageType, prepareMessageForResponse, StatusCode } from "./model";
+import { Environment, IResolver, Message, MessageType, StatusCode } from "./model";
+import { buildMessage, IResolverRequest, prepareMessageForResponse } from "./internal-model";
 import { RequestController } from "./request-controller";
 
 export class Base {
@@ -93,6 +94,10 @@ export class Base {
 
         this.resolvers.set(resolver.name, resolver);
     }
+
+    // public registerSubscription(name: string, callabck: Function): void {
+
+    // }
 
     public dispose(): void {
         this.rc.dispose();

@@ -4889,10 +4889,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fesoa-bridge@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/fesoa-bridge/-/fesoa-bridge-0.1.5.tgz#68b0ac0b3e0dd0fb34ad0d4986cc738c2801ebb0"
-  integrity sha512-1Q8nHWrkRWYApoAjkuabx+dC/me9yO7RzA5DvtdmyS2RaO++d6Z+3yYeUyJJEMZ8iFvmHQyXA7D/HCMipP/cvQ==
+fesoa-bridge@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/fesoa-bridge/-/fesoa-bridge-0.1.7.tgz#2f07b071edde4dbeb8b56c1f5a6188f702781d74"
+  integrity sha512-yQAb6TDdgpFHuIzt0T1g9msIe4vyrBL0RHJ3DRqfDLljscTRtsWSI5lr/WbJ0DkXmshPyo4bgZ/liMwrWn+Bpw==
   dependencies:
     uuid "^8.3.2"
 

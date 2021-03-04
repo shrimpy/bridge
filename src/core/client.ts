@@ -1,5 +1,6 @@
-import { Environment, MessageType, readMessageFromEvent, ResponseObject, StatusCode } from "./model";
+import { Environment, MessageType, ResponseObject, StatusCode } from "./model";
 import { Base } from "./base";
+import { readMessageFromEvent } from "./internal-model";
 
 const FREQUENCY_FOR_INIT_HEART_BEAT_SIGNAL_MS = 500; // broadcast every 500 million seconds
 

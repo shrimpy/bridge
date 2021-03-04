@@ -1,4 +1,5 @@
-import { Message, RequestKeeperEntry, REQUEST_LIFE_DURATION, StatusCode } from "./model";
+import { Message, StatusCode } from "./model";
+import { RequestKeeperEntry, REQUEST_LIFE_DURATION } from "./internal-model";
 import { deepClone } from "./../utils";
 
 export class RequestKeeper {
