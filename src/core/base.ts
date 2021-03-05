@@ -1,10 +1,16 @@
 import { isSerializableShallow } from "../utils";
 import { Environment, IResolver, Message, MessageType, StatusCode } from "./model";
-import { buildMessage, IResolverRequest, prepareMessageForResponse } from "./internal-model";
+import { buildMessage, IBase, IResolverRequest, prepareMessageForResponse } from "./internal-model";
 import { RequestController } from "./request-controller";
+import { SubscriberStore } from "./pubsub/subscriber-store";
+import { PublisherStore } from "./pubsub/publisher-store";
+import { PublisherResolver } from "./pubsub/publiser-resolver";
+import { SubscriberResolver } from "./pubsub/subscriber-resolver";
 
-export class Base {
+export class Base implements IBase {
     private resolvers: Map<string, IResolver>;
+    private subscriberStore: SubscriberStore;
+    private publisherStore: PublisherStore;
     protected self: Environment;
     protected rc: RequestController;
 
@@ -13,7 +19,15 @@ export class Base {
 
         this.incomingMessageHandler = this.incomingMessageHandler.bind(this);
         this.rc = new RequestController(this.incomingMessageHandler);
+        this.subscriberStore = new SubscriberStore(this);
+        this.publisherStore = new PublisherStore(this);
         this.resolvers = new Map<string, IResolver>();
+
+        const publisherResolver = new PublisherResolver(this.publisherStore);
+        this.resolvers.set(publisherResolver.name, publisherResolver);
+
+        const subscriberResolver = new SubscriberResolver(this.subscriberStore);
+        this.resolvers.set(subscriberResolver.name, subscriberResolver);
     }
 
     protected async incomingMessageHandler(message: Message): Promise<void> {
@@ -68,13 +82,13 @@ export class Base {
         return this.rc.sendMessage(message);
     }
 
-    public async invokeResolver<T>(resolverName: string, eventName: string, inputs: any, to: string): Promise<T> {
+    public async invokeResolver<T>(resolverName: string, eventName: string, inputs: any): Promise<T> {
         const req: IResolverRequest = {
             name: resolverName,
             event: eventName,
             inputs: inputs,
         };
-        const message = buildMessage(req, MessageType.MESSAGING, this.self.origin, to || "");
+        const message = buildMessage(req, MessageType.MESSAGING, this.self.origin, "");
         const returnMessage = await this.sendMessage(message);
         if (!returnMessage.response) {
             throw new Error("failed to invoke resolver, inputs: " + JSON.stringify(inputs || {}));
@@ -95,9 +109,17 @@ export class Base {
         this.resolvers.set(resolver.name, resolver);
     }
 
-    // public registerSubscription(name: string, callabck: Function): void {
+    public subscribe(eventName: string, callback: Function): Promise<void> {
+        return this.subscriberStore.subscribe(eventName, callback);
+    }
 
-    // }
+    public unsubscribe(eventName: string, callback: Function): Promise<void> {
+        return this.subscriberStore.unsubscribe(eventName, callback);
+    }
+
+    public broadcastEvent(eventName: string, payload: any): Promise<void> {
+        return this.publisherStore.broadcastEvent(eventName, payload);
+    }
 
     public dispose(): void {
         this.rc.dispose();

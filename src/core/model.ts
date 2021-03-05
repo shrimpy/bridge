@@ -39,8 +39,6 @@ export interface Message {
     response?: ResponseObject;
 }
 
-
-
 export interface Environment {
     postMessage: (message: any, to: string, transfer?: any[]) => void;
     origin: string;
@@ -48,9 +46,6 @@ export interface Environment {
     addEventListener: (eventName: string, callback: (event: MessageEvent) => void) => void;
 }
 
-
-
 export interface IResolver {
     name: string;
 }
-

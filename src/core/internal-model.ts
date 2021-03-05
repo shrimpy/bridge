@@ -59,3 +59,7 @@ export interface IResolverRequest {
     event: string;
     inputs: any;
 }
+
+export interface IBase {
+    invokeResolver<T>(resolverName: string, eventName: string, inputs: any): Promise<T>;
+}
