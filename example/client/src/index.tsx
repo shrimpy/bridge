@@ -4,6 +4,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Client, IResolver } from 'fesoa-bridge';
 
+const main = async () => {
+  await setupClient();
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('client-root')
+  );
+
+  // If you want to start measuring performance in your app, pass a function
+  // to log results (for example: reportWebVitals(console.log))
+  // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+  reportWebVitals();
+};
+
 class ClientSampleResolver implements IResolver {
   public name: string = "ClientSampleResolver";
 
@@ -23,23 +38,16 @@ const setupClient = async () => {
 
   console.log(`Client (${window.origin}) ===> Client: connected.`);
 
-  const response = await client.invokeResolver<string>("HostSampleResolver", "echo", { message: "message from client" }, "");
+  const response = await client.invokeResolver<string>("HostSampleResolver", "echo", { message: "message from client" });
   console.log(`Client (${window.origin}) ===> RESPONSE from host > ${JSON.stringify(response)}`);
-};
 
-const main = async () => {
-  await setupClient();
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById('client-root')
-  );
+  client.subscribe("host-event", (inputs: any) => {
+    console.log("Client - sub ===>", inputs);
+  });
 
-  // If you want to start measuring performance in your app, pass a function
-  // to log results (for example: reportWebVitals(console.log))
-  // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-  reportWebVitals();
+  setTimeout(() => {
+    client.broadcastEvent("client-event", "Diamond Hands!");
+  }, 1000);
 };
 
 main();

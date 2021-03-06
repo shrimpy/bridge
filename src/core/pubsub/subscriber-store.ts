@@ -42,8 +42,8 @@ export class SubscriberStore {
         return Promise.resolve();
     }
 
-    public notifyEvent(subscription: Subscription<any>): void {
-        const cbList = this.store.get(subscription.event);
+    public broadcast(subscription: Subscription<any>): void {
+        const cbList = this.store.get(subscription.eventName);
         if (!cbList) return;
 
         cbList.forEach(cb => {

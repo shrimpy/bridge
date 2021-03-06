@@ -1,4 +1,4 @@
 export interface Subscription<T> {
-    event: string;
+    eventName: string;
     payload: T;
 }

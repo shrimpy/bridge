@@ -105,9 +105,19 @@ class HostSampleResolver implements IResolver {
 async function setupHost(name: string, client: Environment, clientOrigin: string) {
   const host = new Host(window, client, clientOrigin);
   host.registerResolver(new HostSampleResolver());
+
   await host.setup()
+
   console.log(`Host ===> ${name}: channel opened.`);
 
-  const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", { message: "message from host" }, "");
+  const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", { message: "message from host" });
   console.log(`Host ===> RESPONSE from client > ${JSON.stringify(response)}`);
+
+  host.subscribe("client-event", (inputs: any) => {
+    console.log("Host - sub ===>", inputs);
+  });
+
+  setTimeout(() => {
+    host.broadcastEvent("host-event", "YOLO");
+  }, 1000);
 }

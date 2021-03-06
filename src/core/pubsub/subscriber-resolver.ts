@@ -1,4 +1,5 @@
 import { IResolver } from "../model";
+import { Subscription } from "./model";
 import { SubscriberStore } from "./subscriber-store";
 
 export class SubscriberResolver implements IResolver {
@@ -15,5 +16,9 @@ export class SubscriberResolver implements IResolver {
 
     public unsubscribe(eventName: string, callback: Function) {
         this.store.unsubscribe(eventName, callback);
+    }
+
+    public broadcast(subscription: Subscription<any>) {
+        this.store.broadcast(subscription);
     }
 }
