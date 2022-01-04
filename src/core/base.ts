@@ -63,7 +63,7 @@ export class Base implements IBase {
             message.response = { status: StatusCode.OK, body: eventResult };
             const predMessage = prepareMessageForResponse(message);
             await this.sendMessage(predMessage);
-        } catch (err: any) {
+        } catch (err) {
             const predMessage = buildErrorResponse(
                 message,
                 `failed to call event ${resolverReq.event} from resolver ${resolverReq.name}: ${err.message} > ${err.stack || ""}`,
