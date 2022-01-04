@@ -55,5 +55,20 @@
     },
     "dependencies": {
         "uuid": "^8.3.2"
-    }
+    },
+    "keywords": [
+        "iframe",
+        "CORS",
+        "DIV",
+        "SOA",
+        "micro frontend",
+        "micro frontends",
+        "microfrontend",
+        "microfrontends",
+        "micro-frontend",
+        "micro-frontends",
+        "microservice",
+        "protocol",
+        "async"
+    ]
 }
