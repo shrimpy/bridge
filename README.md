@@ -6,8 +6,7 @@ Bridge is a front-end library provide developer friendly protocol for cross doma
 ## How it works?
 
 See [example](https://github.com/shrimpy/bridge/tree/main/example) folder for full working sample
-- Please install Chrome extension "Moesif Origin & CORS Changer" to enable CROS communication
-- In real world you will configure your target server to allow request from another domain 
+- For detail instruction on how to run the example, scroll to the bottom of the README
 
 #### 1. Load content from another domain into an iframe
 ```
@@ -105,3 +104,12 @@ host.broadcastEvent(`[${name}] host-event`, "YOLO");
     console.log("Client - sub ===>", inputs);
   });
 ```
+
+## How to run the example
+- Open two terminal and `cd` into `bridge/example/client` and `bridge/example/host`
+- `yarn install` on both folder
+- Ensure you install browser plugin that enabled CORS request for your browser (In real world you will configure your server to allow request from another domain)
+- `yarn start` on both terminal
+- You should see something like below from the Host app
+
+![Screenshot](./example/expected-output.png)
