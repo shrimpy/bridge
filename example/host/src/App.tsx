@@ -108,16 +108,16 @@ async function setupHost(name: string, client: Environment, clientOrigin: string
 
   await host.setup()
 
-  console.log(`Host ===> ${name}: channel opened.`);
+  console.log(`[${name}] Host: channel opened.`);
 
   const response = await host.invokeResolver<string>("ClientSampleResolver", "echo", { message: "message from host" });
-  console.log(`Host ===> RESPONSE from client > ${JSON.stringify(response)}`);
+  console.log(`[${name}] Host ===> RESPONSE from client > ${JSON.stringify(response)}`);
 
   host.subscribe("client-event", (inputs: any) => {
-    console.log("Host - sub ===>", inputs);
+    console.log(`[${name}] Host - sub ===>`, inputs);
   });
 
   setTimeout(() => {
-    host.broadcastEvent("host-event", "YOLO");
+    host.broadcastEvent(`[${name}] host-event`, "YOLO");
   }, 1000);
 }
