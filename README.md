@@ -3,6 +3,15 @@
 ## What is Bridge?
 Bridge is a front-end library provide developer friendly protocol for cross domain (e.g iframe) communications.
 
+## Install
+```
+npm i fesoa-bridge
+
+or
+
+yarn add fesoa-bridge
+```
+
 ## How it works?
 
 See [example](https://github.com/shrimpy/bridge/tree/main/example) folder for full working sample
