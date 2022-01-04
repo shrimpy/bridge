@@ -118,6 +118,6 @@ async function setupHost(name: string, client: Environment, clientOrigin: string
   });
 
   setTimeout(() => {
-    host.broadcastEvent(`[${name}] host-event`, "YOLO");
+    host.broadcastEvent(`host-event`, "YOLO");
   }, 1000);
 }
